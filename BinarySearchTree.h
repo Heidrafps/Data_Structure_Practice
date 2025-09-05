@@ -4,11 +4,11 @@
 
 #ifndef BINARYSEARCHTREE_H
 #define BINARYSEARCHTREE_H
-
+template<class T>
 class BinarySearchTree {
 private:
     struct Node {
-        int data;
+        T data;
         Node *left, *right;
     };
     Node *m_root;
@@ -42,7 +42,7 @@ private:
     public:
     // Constructor
     BinarySearchTree();
-    explicit BinarySearchTree(const int data);
+    explicit BinarySearchTree(T data);
 
     // **RULE OF 5**
     /// Copy Constructor: preforms a deep copy of another tree
@@ -53,11 +53,11 @@ private:
     BinarySearchTree& operator=(const BinarySearchTree&);
 
     /// Move Constructor: Transfers the ownership of the tree to another resource
-    BinarySearchTree(BinarySearchTree&&);
+    BinarySearchTree(BinarySearchTree&&) noexcept;
 
     /// Move Assignment Operator: Deletes the current tree and transfers the owndership to another resource
     /// @return
-    BinarySearchTree& operator=(BinarySearchTree&&);
+    BinarySearchTree& operator=(BinarySearchTree&&) noexcept;
 
     /// Destructor: Deallocates all the memory used by the tree
     ~BinarySearchTree();
@@ -65,18 +65,20 @@ private:
     // Method
     /// This method will add a node onto the tree. If there isn't a tree yet instantiated,
     /// the provided data will become the root node in the tree.
-    /// ** PRECONDITION **
-    /// @param data Must be a valid integer type
-    /// ** POST CONDITION **
+    /// ** PRECONDITION ***
+    ///
+    /// * POST CONDITION **
     /// All the nodes on the left side will be STRICTLY less than the parent node
     /// All the nodes on the right side will be GREATER THAN or EQUAL to the parent node
-    void insert(int data);
+    /// @param data
+    ///
+    void insert(T data);
 
     /// This method will determine whether the tree is empty. This method
     /// DOES NOT modify the tree.
     /// @param data 
     /// @return 
-    bool search(int data) const;
+    bool search(T data) const;
 
     // Traversals
     /// Left -> Middle -> Right
@@ -93,5 +95,5 @@ private:
 
 };
 
-
+#include "BinarySearchTree.tpp"
 #endif //BINARYSEARCHTREE_H
