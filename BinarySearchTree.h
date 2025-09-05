@@ -4,6 +4,14 @@
 
 #ifndef BINARYSEARCHTREE_H
 #define BINARYSEARCHTREE_H
+/* CLASS INVARIANT
+ * - This tree will only have an ability to have up to two child nodes
+ * - Data is strictly less than the parent node will always be on the left subtree. Otherwise, it will be located on the
+ * right subtree.
+ * - Each node has at MOST one parent. Nodes nodes will not point to the same Nodes nodes on the same height.
+ * - Deleting the root node will always make the predecessor the new root node as long as
+ * the tree has more than 3 nodes.
+ */
 template<class T>
 class BinarySearchTree {
 private:
@@ -19,26 +27,31 @@ private:
     // Traversals
     /// Left -> Middle -> Right
     /// This helper method will print the inorder traversal of the Binary Tree
-    /// @param node
+    /// @param node A valid Node. The Node cannot be null.
     void inorder(Node* node);
 
     /// Middle -> Left -> Right
     /// This helper method will print out the preorder traversal of the Binary Tree
-    /// @param node
+    /// @param node A valid Node. The Node cannot be null.
     void preorder(Node* node);
 
     /// Left-> Right -> Middle
     /// This helper method will print out the postorder traversal of the Binary Tree
-    /// @param node
+    /// @param node A valid Node. The Node cannot be null.
     void postorder(Node* node);
 
     /// This helper method will DEEP COPY the nodes.
-    /// @param tree
+    /// @param tree A valid Node. The Node cannot be null.
     Node* deepCopyTree(Node* tree);
 
     /// This helper method will deallocate and destroy the tree.
-    /// @param node
+    /// @param node A valid Node. The Node cannot be null.
     void destroyTree(Node* node);
+
+    /// This method will balance the tree
+    void balanceTree(Node* node);
+
+    int height(Node* node);
     public:
     // Constructor
     BinarySearchTree();
@@ -70,13 +83,13 @@ private:
     /// * POST CONDITION **
     /// All the nodes on the left side will be STRICTLY less than the parent node
     /// All the nodes on the right side will be GREATER THAN or EQUAL to the parent node
-    /// @param data
+    /// @param data Must be a valid data with the correct data type.
     ///
     void insert(T data);
 
     /// This method will determine whether the tree is empty. This method
     /// DOES NOT modify the tree.
-    /// @param data 
+    /// @param data Must be a valid data with the correct data type.
     /// @return 
     bool search(T data) const;
 
@@ -93,6 +106,12 @@ private:
     /// This method will print out the postorder traversal of the Binary Trer
     void printPostorder();
 
+    /// This method will remove the root node. The new root node will always be the predecessor
+    /// of the original root node
+    void deleteRoot();
+
+    /// This method will balance the tree
+    void balanceTree();
 };
 
 #include "BinarySearchTree.tpp"

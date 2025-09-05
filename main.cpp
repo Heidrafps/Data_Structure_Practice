@@ -30,5 +30,7 @@ int main() {
     }else {
         std::cout<<"No"<<std::endl;
     }
+
+    tree.printInorder();
     return 0;
 }

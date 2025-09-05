@@ -148,6 +148,47 @@ void BinarySearchTree<T>::printPostorder() {
     std::cout << std::endl;
 }
 
+template<class T>
+void BinarySearchTree<T>::deleteRoot() {
+    if (isEmpty(m_root)) return;
 
+    Node* oldRoot = m_root;
 
+    // Case 1: No children
+    if (!oldRoot->left && !oldRoot->right) {
+        delete oldRoot;
+        m_root = nullptr;
+    }
+    // Case 2: Only right child
+    else if (!oldRoot->left) {
+        m_root = oldRoot->right;
+        delete oldRoot;
+    }
+    // Case 3: Only left child
+    else if (!oldRoot->right) {
+        m_root = oldRoot->left;
+        delete oldRoot;
+    }
+    // Case 4: Two children+
+    else {
+        // Find inorder predecessor (max node in left subtree)
+        Node* parent = oldRoot;
+        Node* predecessor = oldRoot->left;
+        while (predecessor->right) {
+            parent = predecessor;
+            predecessor = predecessor->right;
+        }
+
+        // Copy predecessor's value into root
+        oldRoot->data = predecessor->data;
+
+        // Delete predecessor node (it has at most one child)
+        if (parent == oldRoot) {
+            parent->left = predecessor->left;
+        } else {
+            parent->right = predecessor->left;
+        }
+        delete predecessor;
+    }
+}
 
