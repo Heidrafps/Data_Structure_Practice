@@ -64,7 +64,7 @@ private:
     /// 
     /// @param data 
     /// @return 
-    bool search(int data);
+    bool search(int data) const;
 
     // Traversals
     /// Left -> Middle -> Right

@@ -127,14 +127,17 @@ void BinarySearchTree::postorder(Node *node) {
 
 void BinarySearchTree::printinorder() {
     inorder(root);
+    std::cout << std::endl;
 }
 
 void BinarySearchTree::printpreorder() {
     preorder(root);
+    std::cout << std::endl;
 }
 
 void BinarySearchTree::printpostorder() {
     postorder(root);
+    std::cout << std::endl;
 }
 BinarySearchTree::Node * BinarySearchTree::deepcopytree(Node *node) {
     // Base Case

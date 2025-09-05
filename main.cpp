@@ -12,13 +12,9 @@ int main() {
 
     // TRAVERSALS
     tree.printinorder();
-    std::cout << std::endl;
-
     tree.printpreorder();
-    std::cout << std::endl;
-
     tree.printpostorder();
-    std::cout << std::endl;
+
 
     // COPY ASSIGNMENT
     BinarySearchTree new_tree;
