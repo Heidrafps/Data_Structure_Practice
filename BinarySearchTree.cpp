@@ -4,15 +4,15 @@
 
 
 BinarySearchTree::BinarySearchTree() {
-    root = nullptr;
+    m_root = nullptr;
 }
 
-BinarySearchTree::BinarySearchTree(const int data): root(nullptr) {
-    root = new Node(data);
+BinarySearchTree::BinarySearchTree(const int data): m_root(nullptr) {
+    m_root = new Node(data);
 }
 
 BinarySearchTree::BinarySearchTree(const BinarySearchTree &other) {
-    root = deepcopytree(other.root);
+    m_root = deepCopyTree(other.m_root);
 }
 
 BinarySearchTree& BinarySearchTree::operator=(const BinarySearchTree &other) {
@@ -20,40 +20,40 @@ BinarySearchTree& BinarySearchTree::operator=(const BinarySearchTree &other) {
     if(this == &other) {
         return *this;
     }
-    destroytree(root);
-    root = deepcopytree(other.root);
+    destroyTree(m_root);
+    m_root = deepCopyTree(other.m_root);
     return *this;
 }
 
 BinarySearchTree::BinarySearchTree(BinarySearchTree &&other) {
     // Steal the pointer
-    root = other.root;
-    other.root = nullptr;
+    m_root = other.m_root;
+    other.m_root = nullptr;
 }
 
 BinarySearchTree& BinarySearchTree::operator=(BinarySearchTree &&other) {
     if(this == &other) {
         return *this;
     }
-    destroytree(root);
-    root = other.root;
-    other.root = nullptr;
+    destroyTree(m_root);
+    m_root = other.m_root;
+    other.m_root = nullptr;
     return *this;
 }
 
 BinarySearchTree::~BinarySearchTree() {
-    destroytree(root);
+    destroyTree(m_root);
 }
 
 void BinarySearchTree::insert(int data) {
     // Create new Node
     Node* newNode = new Node(data);
     // If root is empty, make the new node the root
-    if(isempty(root)) {
-        root = newNode;
+    if(isEmpty(m_root)) {
+        m_root = newNode;
         return;
     }
-    Node *current = root;
+    Node *current = m_root;
     Node *parent = nullptr;
     // Interation to traverse left or right
     while(current != nullptr) {
@@ -72,11 +72,11 @@ void BinarySearchTree::insert(int data) {
     }
 }
 
-bool BinarySearchTree::search(int data) {
-    if(isempty(root)) {
+bool BinarySearchTree::search(int data) const{
+    if(isEmpty(m_root)) {
         return false;
     }
-    Node *current = root;
+    Node *current = m_root;
     while(current != nullptr) {
         if(data == current->data) {
             return true;
@@ -89,12 +89,12 @@ bool BinarySearchTree::search(int data) {
     }
     return false;
 }
-bool BinarySearchTree::isempty(Node* node) {
+bool BinarySearchTree::isEmpty(Node* node) const {
     return node == nullptr;
 }
 void BinarySearchTree::inorder(Node *node) {
     // Base Case
-    if(isempty(node)) {
+    if(isEmpty(node)) {
         return;
     }
     // Recursive Case
@@ -105,7 +105,7 @@ void BinarySearchTree::inorder(Node *node) {
 
 void BinarySearchTree::preorder(Node *node) {
     // Base Case
-    if(isempty(node)) {
+    if(isEmpty(node)) {
         return;
     }
     // Recursive Case
@@ -116,7 +116,7 @@ void BinarySearchTree::preorder(Node *node) {
 
 void BinarySearchTree::postorder(Node *node) {
     // Base Case
-    if(isempty(node)) {
+    if(isEmpty(node)) {
         return;
     }
     // Recursive Case
@@ -125,40 +125,40 @@ void BinarySearchTree::postorder(Node *node) {
     std::cout<<node->data << " ";
 }
 
-void BinarySearchTree::printinorder() {
-    inorder(root);
+void BinarySearchTree::printInorder() {
+    inorder(m_root);
     std::cout << std::endl;
 }
 
-void BinarySearchTree::printpreorder() {
-    preorder(root);
+void BinarySearchTree::printPreorder() {
+    preorder(m_root);
     std::cout << std::endl;
 }
 
-void BinarySearchTree::printpostorder() {
-    postorder(root);
+void BinarySearchTree::printPostorder() {
+    postorder(m_root);
     std::cout << std::endl;
 }
-BinarySearchTree::Node * BinarySearchTree::deepcopytree(Node *node) {
+BinarySearchTree::Node * BinarySearchTree::deepCopyTree(Node *node) {
     // Base Case
-    if(isempty(node)) {
+    if(isEmpty(node)) {
         return nullptr;
     }
     // Recursive Case
     // Make a new node
     Node* newnode = new Node(node->data);
     // Copy the left nodes
-    newnode->left = deepcopytree(node->left);
+    newnode->left = deepCopyTree(node->left);
     // Copy the right nodes
-    newnode->right = deepcopytree(node->right);
+    newnode->right = deepCopyTree(node->right);
     return newnode;
 }
-void BinarySearchTree::destroytree(Node *node) {
-    if(isempty(node)) {
+void BinarySearchTree::destroyTree(Node *node) {
+    if(isEmpty(node)) {
         return;
     }
-    destroytree(node->left);
-    destroytree(node->right);
+    destroyTree(node->left);
+    destroyTree(node->right);
     delete node;
 }
 

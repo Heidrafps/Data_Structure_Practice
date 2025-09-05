@@ -11,44 +11,55 @@ private:
         int data;
         Node *left, *right;
     };
-    Node *root;
+    Node *m_root;
 
     /// This method will determine whether the tree is empty
     /// @return
-    bool isempty(Node* node);
+    bool isEmpty(Node* node) const;
     // Traversals
     /// Left -> Middle -> Right
-    /// This is helper method will print the inorder traversal of the Binary Tree
-    /// @param tree
+    /// This helper method will print the inorder traversal of the Binary Tree
+    /// @param node
     void inorder(Node* node);
 
     /// Middle -> Left -> Right
-    /// This is helper method will print out the preorder traversal of the Binary Tree
-    /// @param tree
+    /// This helper method will print out the preorder traversal of the Binary Tree
+    /// @param node
     void preorder(Node* node);
 
     /// Left-> Right -> Middle
-    /// This is helper method will print out the postorder traversal of the Binary Tree
-    /// @param tree
+    /// This helper method will print out the postorder traversal of the Binary Tree
+    /// @param node
     void postorder(Node* node);
 
-    /// This is helper method will DEEP COPY the nodes.
-    /// @param trree
-    Node* deepcopytree(Node* tree);
+    /// This helper method will DEEP COPY the nodes.
+    /// @param tree
+    Node* deepCopyTree(Node* tree);
 
-    /// This is helper method will deallocate and destroy the tree.
+    /// This helper method will deallocate and destroy the tree.
     /// @param node
-    void destroytree(Node* node);
+    void destroyTree(Node* node);
     public:
     // Constructor
     BinarySearchTree();
     explicit BinarySearchTree(const int data);
 
-    // RULE OF 5
+    // **RULE OF 5**
+    /// Copy Constructor: preforms a deep copy of another tree
     BinarySearchTree(const BinarySearchTree&);
+
+    /// Copy Assignment Operator: Deletes the current tree and deep copies another tree
+    /// @return 
     BinarySearchTree& operator=(const BinarySearchTree&);
+
+    /// Move Constructor: Transfers the ownership of the tree to another resource
     BinarySearchTree(BinarySearchTree&&);
+
+    /// Move Assignment Operator: Deletes the current tree and transfers the owndership to another resource
+    /// @return
     BinarySearchTree& operator=(BinarySearchTree&&);
+
+    /// Destructor: Deallocates all the memory used by the tree
     ~BinarySearchTree();
 
     // Method
@@ -61,7 +72,8 @@ private:
     /// All the nodes on the right side will be GREATER THAN or EQUAL to the parent node
     void insert(int data);
 
-    /// 
+    /// This method will determine whether the tree is empty. This method
+    /// DOES NOT modify the tree.
     /// @param data 
     /// @return 
     bool search(int data) const;
@@ -69,18 +81,15 @@ private:
     // Traversals
     /// Left -> Middle -> Right
     /// This method will print the inorder traversal of the Binary Tree
-    /// @param tree
-    void printinorder();
+    void printInorder();
 
     /// Middle -> Left -> Right
     /// This method will print out the preorder traversal of the Binary Tree
-    /// @param tree
-    void printpreorder();
+    void printPreorder();
 
     /// Left-> Right -> Middle
-    /// This method will print out the postorder traversal of the Binary Tree
-    /// @param tree
-    void printpostorder();
+    /// This method will print out the postorder traversal of the Binary Trer
+    void printPostorder();
 
 };
 
