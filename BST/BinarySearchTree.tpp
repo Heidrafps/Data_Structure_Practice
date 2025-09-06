@@ -149,7 +149,7 @@ void BinarySearchTree<T>::printPostorder() {
 }
 
 template<class T>
-void BinarySearchTree<T>::deleteRoot() {
+void BinarySearchTree<T>::deleteRootPredecessor() {
     if (isEmpty(m_root)) return;
 
     Node* oldRoot = m_root;
@@ -171,7 +171,7 @@ void BinarySearchTree<T>::deleteRoot() {
     }
     // Case 4: Two children+
     else {
-        // Find inorder predecessor (max node in left subtree)
+        // Find inorder predecessor
         Node* parent = oldRoot;
         Node* predecessor = oldRoot->left;
         while (predecessor->right) {
@@ -182,13 +182,55 @@ void BinarySearchTree<T>::deleteRoot() {
         // Copy predecessor's value into root
         oldRoot->data = predecessor->data;
 
-        // Delete predecessor node (it has at most one child)
+        // Delete predecessor node
         if (parent == oldRoot) {
             parent->left = predecessor->left;
         } else {
             parent->right = predecessor->left;
         }
         delete predecessor;
+    }
+}
+
+template<class T>
+void BinarySearchTree<T>::deleteRootSuccessor() {
+    if (isEmpty(m_root)) return;
+
+    Node* temp = m_root;
+
+    if (!m_root->left && !m_root->right) {
+        // Case 1: No children
+        delete m_root;
+        m_root = nullptr;
+    } else if (!m_root->left) {
+        // Case 2: Only right child
+        m_root = m_root->right;
+        delete temp;
+    } else if (!m_root->right) {
+        // Case 3: Only left child
+        m_root = m_root->left;
+        delete temp;
+    } else {
+        // Case 4: Two children+
+        // Find the inorder successor
+        Node* successorParent = m_root;
+        Node* successor = m_root->right;
+        while (successor->left) {
+            successorParent = successor;
+            successor = successor->left;
+        }
+
+        // Copy the successor's data to the root
+        m_root->data = successor->data;
+
+        // Delete the successor node
+        if (successorParent->left == successor) {
+            successorParent->left = successor->right;
+        } else {
+            // This handles the case where the successor is the direct right child
+            successorParent->right = successor->right;
+        }
+        delete successor;
     }
 }
 

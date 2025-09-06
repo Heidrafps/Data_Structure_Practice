@@ -8,9 +8,7 @@
  * - This tree will only have an ability to have up to two child nodes
  * - Data is strictly less than the parent node will always be on the left subtree. Otherwise, it will be located on the
  * right subtree.
- * - Each node has at MOST one parent. Nodes nodes will not point to the same Nodes nodes on the same height.
- * - Deleting the root node will always make the predecessor the new root node as long as
- * the tree has more than 3 nodes.
+ * - Each node has at MOST one parent. Nodes will not point to the same Nodes  on the same height.
  */
 template<class T>
 class BinarySearchTree {
@@ -113,7 +111,11 @@ private:
 
     /// This method will remove the root node. The new root node will always be the predecessor
     /// of the original root node
-    void deleteRoot();
+    void deleteRootPredecessor();
+
+    /// This method will remove the root node, The new root node will always be the successor of
+    /// the original root node.
+    void deleteRootSuccessor();
 
 };
 
