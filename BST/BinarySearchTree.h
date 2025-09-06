@@ -48,10 +48,15 @@ private:
     /// @param node A valid Node. The Node cannot be null.
     void destroyTree(Node* node);
 
-    /// This method will balance the tree
-    void balanceTree(Node* node);
-
+    /// 
+    /// @param node 
+    /// @return 
     int height(Node* node);
+
+    /// 
+    /// @param node 
+    /// @return 
+    int countNodes(Node* node);
     public:
     // Constructor
     BinarySearchTree();
@@ -110,8 +115,6 @@ private:
     /// of the original root node
     void deleteRoot();
 
-    /// This method will balance the tree
-    void balanceTree();
 };
 
 #include "BinarySearchTree.tpp"

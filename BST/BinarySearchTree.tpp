@@ -192,3 +192,13 @@ void BinarySearchTree<T>::deleteRoot() {
     }
 }
 
+template<class T>
+int BinarySearchTree<T>::countNodes(Node *node) {
+    int nodeCount = 0;
+    // Base Case
+    if (node == nullptr) return nodeCount;
+    // Recursive Case
+    return 1 + countNodes(node->left) + countNodes(node->right);
+}
+
+
